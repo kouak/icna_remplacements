@@ -45,16 +45,15 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'bootstrap-sass'
 gem 'cancan'
-gem 'devise'
-gem 'devise_invitable'
+gem 'devise', '>= 3.0.0.rc'
 gem 'figaro'
 gem 'haml-rails'
-gem 'libv8'
-gem 'rolify'
+#gem 'libv8'
+gem 'rolify', '>= 3.3.0.rc4'
 gem 'simple_form', '>= 3.0.0.rc'
 
 group :assets do
-  gem 'therubyracer', :platform=>:ruby, :require=>"v8"
+  gem 'therubyracer'
 end
 
 group :development do
