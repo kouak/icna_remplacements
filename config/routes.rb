@@ -5,6 +5,8 @@ LfeeRemplacements::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'user#index'
+  resources :users, :only => [:show, :index]
+  resources :teams, :only => [:show, :index]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
