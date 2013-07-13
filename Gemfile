@@ -42,6 +42,7 @@ gem 'jbuilder', '~> 1.2'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'rails-i18n', '~> 4.0.0.pre'
 gem 'bootstrap-sass'
 gem 'cancan'
 gem 'devise', '>= 3.0.0.rc'

@@ -1,0 +1,32 @@
+fr:
+    devise:
+        shared:
+            links:
+                didn_t_receive_confirmation_instructions: Vous n'avez pas reçu le mail de confirmation ?
+                didn_t_receive_unlock_instructions: Vous n'avez pas reçu le mail de débloquage ?
+                forgot_your_password: Mot de passe oublié ?
+                sign_in: Connexion
+                sign_in_with_provider: Connexion avec %{provider}
+                sign_up: Inscription
+        registrations:
+            new:
+                sign_up: S'enregistrer
+            edit:
+                edit: Mettre à jour vos informations
+                hints:
+                    new_password: Laissez ce champ vide si vous ne désirez pas changer de mot de passe
+                    current_password: Nous avons besoin de votre mot de passe actuel pour confirmer vos changements
+            user:
+                edit: Mettre à jour vos informations
+                destroyed: Au revoir ! Votre compte a été annulé avec succès. Nous espérons vous revoir bientôt.
+                signed_up: Bienvenue ! Vous vous êtes enregistré(e) avec succès.
+                signed_up_but_inactive: Vous vous êtes enregistré(e) avec succès. Cependant, nous n’avons pas pu vous connecter car votre compte n’a pas encore été activé.
+                signed_up_but_locked: Vous vous êtes enregistré(e) avec succès. Cependant, nous n’avons pas pu vous connecter car votre compte est verrouillé.
+                signed_up_but_unconfirmed: Un message avec un lien de confirmation vous a été envoyé par mail. Veuillez suivre ce lien pour activer votre compte.
+                update_needs_confirmation: Vous avez modifié votre compte avec succès, mais nous devons vérifier votre nouvelle adresse email. Veuillez consulter vos emails et cliquer sur le lien de confirmation pour finalizer votre nouvelle adresse.
+                updated: Votre compte a été modifié avec succès.
+        sessions:
+            new:
+                sign_in: Connexion
+            destroy:
+                sign_out: Se déconnecter

@@ -3,7 +3,7 @@
 	%head
 		%meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1"}
 		%title= content_for?(:title) ? yield(:title) : "Remplacements Reims"
-		%meta{:content => content_for?(:description) ? yield(:description) : "App_Name", :name => "description"}
+		%meta{:content => content_for?(:description) ? yield(:description) : "Remplacements Reims", :name => "description"}
 		= stylesheet_link_tag :application, :media => "all"
 		= javascript_include_tag :application
 		= csrf_meta_tags
@@ -12,12 +12,8 @@
 		%header.navbar.navbar-fixed-top.navbar-inverse
 			%nav.navbar-inner
 				.container
-					= render 'layouts/navigation'
-		#main{:role => "main"}
-			.container
-				.content
-					.row
-						.span12
-							= render 'layouts/messages'
-							= yield
+					=render 'layouts/navigation'
+		.container.master-container
+			=render 'layouts/messages'
+			= yield
 		%footer

@@ -1,0 +1,13 @@
+fr:
+  activerecord:
+    attributes:
+      user:
+        name: 'Nom'
+        first_name: 'Prénom'
+        surname: 'Surnom'
+        email: 'E-mail'
+        team: 'Equipe'
+        detailed: 'Détaché'
+        password: 'Mot de passe'
+        password_confirmation: 'Confirmation du mot de passe'
+        current_password: 'Mot de passe actuel'

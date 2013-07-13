@@ -1,0 +1,28 @@
+fr:
+  # Buttons
+  helpers:
+    submit:
+      user:
+        create: "S'enregistrer"
+        update: "Sauvegarder vos changements"
+  simple_form:
+    "yes": 'Oui'
+    "no": 'Non'
+    required:
+      text: 'requis'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Veuillez corriger ces problèmes:"
+    # Labels and hints examples
+    labels:
+      defaults:
+        password: 'Mot de passe'
+        password_confirmation: 'Confirmation du mot de passe'
+    #hints:
+    #  defaults:
+    #    username: 'User name to sign in.'
+    #    password: 'No special characters, please.'
+
