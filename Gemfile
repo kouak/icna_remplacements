@@ -51,6 +51,8 @@ gem 'haml-rails'
 gem 'rolify', '>= 3.3.0.rc4'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'will_paginate'
+gem 'rails_admin'
+
 
 group :assets do
   gem 'therubyracer'
