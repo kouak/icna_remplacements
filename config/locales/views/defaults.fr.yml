@@ -2,3 +2,5 @@ fr:
   defaults:
     are_you_sure: Confirmez ?
     back: Retour
+  unauthorized:
+    default: Vous n'êtes pas autorisé à afficher cette page.
