@@ -80,6 +80,10 @@ Given /^I exist as an unconfirmed user$/ do
   create_unconfirmed_user
 end
 
+Given /^I am not an admin$/ do
+  @user.remove_role :admin
+end
+
 ### WHEN ###
 When /^I sign in with valid credentials$/ do
   create_visitor
