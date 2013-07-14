@@ -38,7 +38,7 @@ rescue NameError
 end
 
 # This is needed by CanCan (cucumber disables exceptions)
-#ActionController::Base.allow_rescue = true
+ActionController::Base.allow_rescue = true
 
 # You may also want to configure DatabaseCleaner to use different strategies for certain features and scenarios.
 # See the DatabaseCleaner documentation for details. Example:
