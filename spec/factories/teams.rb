@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :team do
     team 11
+    first_day_in_cycle Date.today
   end
 end
