@@ -283,7 +283,6 @@ DEPENDENCIES
   bootstrap-sass
   cancan
   capybara
-  coffee-rails (~> 4.0.0)
   cucumber-rails
   database_cleaner
   devise (>= 3.0.0.rc)
