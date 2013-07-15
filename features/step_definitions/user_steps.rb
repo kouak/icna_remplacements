@@ -20,6 +20,8 @@ def create_user
   create_visitor
   delete_user
   @user = FactoryGirl.create(:user, email: @visitor[:email])
+  @user.remove_role :admin
+  @user
 end
 
 def create_admin

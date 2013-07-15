@@ -4,8 +4,15 @@ LfeeRemplacements::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  root 'welcome#home'
+  # Root route for unauthenticated users
+  unauthenticated do
+    root to: "welcome#home"
+  end
+  # Same for authenticated users
+  authenticated do
+    root :to => "dashboard#index", :as => "authenticated_root"
+  end
+
   resources :users, :only => [:show, :index]
   resources :teams, :only => [:show, :index]
 

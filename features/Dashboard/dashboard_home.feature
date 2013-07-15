@@ -5,11 +5,10 @@ Feature: Dashboard home
 
   Scenario: User is not signed in
     Given I do not exist as a user
-    When I go to the dashboard page
-    Then I should be redirected to the login page
-    And I should see an unauthenticated flash message
+    When I go to the home page
+    Then I should be on the home page
 
   Scenario: User is signed in
     Given I am logged in
-    When I go to the dashboard page
+    When I go to the home page
     Then I should be on the dashboard home page

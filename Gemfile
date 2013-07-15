@@ -24,6 +24,9 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+# Fixes jquery strange behaviour with turbolinks
+gem 'jquery-turbolinks'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
@@ -54,6 +57,7 @@ gem 'simple_form', '>= 3.0.0.rc'
 gem 'will_paginate'
 gem 'rails_admin'
 gem 'validates_timeliness'
+gem 'fullcalendar-rails'
 
 group :assets do
   gem 'therubyracer'
