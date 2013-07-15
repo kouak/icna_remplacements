@@ -9,8 +9,9 @@ LfeeRemplacements::Application.routes.draw do
   resources :users, :only => [:show, :index]
   resources :teams, :only => [:show, :index]
 
+  get '/dashboard(/:action)' => 'dashboard', :as => :dashboard
   get ':controller(/:action(/:id))' # default route
-  
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

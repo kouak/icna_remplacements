@@ -7,6 +7,16 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to main_app.root_url, :alert => exception.message
   end
+
+  # redirect to dashboard after login
+  def after_sign_in_path_for(user)
+    dashboard_path
+  end
+
+  # redirect to root after logout
+  def after_sign_out_path_for(user)
+    root_path
+  end
   
   # This is needed by devise to allow other parameters during user registration
   before_filter :configure_permitted_parameters, if: :devise_controller?

@@ -13,7 +13,7 @@ Feature: Admin Panel
     Given I am logged in
     And I am not an admin
     When I visit the admin panel
-    Then I should be redirected to the home page
+    Then I should be redirected to the dashboard page
     And I should see an unauthorized flash message
 
   Scenario: User is signed in and is admin

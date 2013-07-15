@@ -7,7 +7,7 @@ Feature: Sign in
       Given I do not exist as a user
       When I sign in with valid credentials
       Then I see an invalid login message
-        And I should be signed out
+      And I should be signed out
 
     Scenario: User has not confirmed account
       Given I exist as an unconfirmed user

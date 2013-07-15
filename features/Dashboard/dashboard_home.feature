@@ -9,7 +9,7 @@ Feature: Dashboard home
     Then I should be redirected to the login page
     And I should see an unauthenticated flash message
 
-  Scenario: User is signed in but not admin
+  Scenario: User is signed in
     Given I am logged in
     When I go to the dashboard page
     Then I should be on the dashboard home page

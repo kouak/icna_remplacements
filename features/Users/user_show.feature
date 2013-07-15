@@ -6,5 +6,5 @@ Feature: Show Users
     Scenario: Viewing users
       Given I am logged in
       When I look at the list of users
-      Then I should be redirected to the home page
+      Then I should be redirected to the dashboard page
       And I should see an unauthorized flash message
