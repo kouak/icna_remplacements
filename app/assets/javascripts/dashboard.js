@@ -3,7 +3,10 @@
 
 $(document).ready(function() {
   $('#calendar').fullCalendar($.extend({ 
-      editable: false
+      editable: false,
+      eventSources: [{
+        url: '/single_events/stub.json'
+      }]
     },
     fullcalendarfr_Options)
   );

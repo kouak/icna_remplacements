@@ -1,0 +1,4 @@
+%h2 Events
+- @single_events.each do |t|
+  %br/
+  #{link_to "#{t}", t} created #{t.created_at.to_date}

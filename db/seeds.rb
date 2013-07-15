@@ -21,10 +21,21 @@ puts 'RESETTNG TEAM CYCLE SEED'
 end
 
 puts 'SETTING UP DEFAULT USER LOGIN'
-
 if User.all.count == 0
   user = User.create! :first_name => 'First', :name => 'User', :email => 'user@example.com', :password => 'please', :password_confirmation => 'please', :confirmed_at => Time.now.utc, :team => Team.find(1), :detailed => false
   puts 'New user created: ' << user.to_s
 else
   puts 'Found existing users, aborting'
+end
+
+puts 'ADDING DUMB SINGLE_EVENT'
+if User.first.single_events.count == 0
+  SingleEvent.create!(
+    :name => 'Dumb',
+    :starttime => Date.today,
+    :endtime => Date.today,
+    :user => User.first,
+    :all_day => true,
+    :description => 'this is a description ...'
+    )
 end
