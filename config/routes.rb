@@ -1,6 +1,12 @@
 LfeeRemplacements::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-  devise_for :users
+  devise_for :users, :path => 'account', :path_names => {
+    :sign_in => 'login',
+    :sign_out => 'logout',
+    :sign_up => 'register'
+    } do
+    resources :events
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -16,8 +22,8 @@ LfeeRemplacements::Application.routes.draw do
   resources :users, :only => [:show, :index]
   resources :teams, :only => [:show, :index]
 
-  get '/dashboard(/:action)' => 'dashboard', :as => :dashboard
-  get ':controller(/:action(/:id))' # default route
+  #get '/dashboard(/:action)' => 'dashboard', :as => :dashboard
+  #get ':controller(/:action(/:id))' # default route
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
