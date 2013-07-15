@@ -80,4 +80,26 @@ describe Team do
 
     results.should eql(targets)
   end
+
+  context "With seed data" do
+    before(:each) do
+      @team = Team.new(@attr)
+      @team.set_cycle_seed :date => Date.today, :day_in_cycle => 1
+    end
+
+    it "should raise an error with invalid arguments" do
+      expect { @Team.day_of_cycle?('caca') }.to raise_error
+    end
+
+    it "should return proper cycle day" do
+      inputs = [Date.today, Date.today-12, Date.today-4, Date.today+1, Date.today+6, Date.today+24+1, Date.today+4]
+      targets = ['M1', 'M1', 'N', 'J', 'M2', 'J', false]
+
+      @team.day_of_cycle?.should eql('M1') # A call without argument should default to today
+
+      inputs.each_with_index do |v,k|
+        @team.day_of_cycle?(v).should eql(targets[k])
+      end
+    end
+  end
 end

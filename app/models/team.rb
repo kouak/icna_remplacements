@@ -30,4 +30,10 @@ class Team < ActiveRecord::Base
     save!
     self
   end
+
+  def day_of_cycle?(day = Date.today)
+    raise ArgumentError unless day.is_a?(Date)
+    offset = day - first_day_in_cycle
+    cycle[offset % cycle.count]
+  end
 end
