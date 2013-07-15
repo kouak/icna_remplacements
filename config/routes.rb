@@ -8,9 +8,6 @@ LfeeRemplacements::Application.routes.draw do
     :sign_up => 'register'
     }
 
-  devise_scope :user do
-    resources :events
-  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -24,7 +21,10 @@ LfeeRemplacements::Application.routes.draw do
     root :to => "dashboard#index", :as => "authenticated_root"
   end
 
-  resources :users, :only => [:show, :index]
+  resources :users, :only => [:show, :index] do
+    resources :events
+  end
+
   resources :teams, :only => [:show, :index]
 
   #get '/dashboard(/:action)' => 'dashboard', :as => :dashboard

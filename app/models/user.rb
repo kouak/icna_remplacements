@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   
   belongs_to :team
+  has_many :single_events, :dependent => :destroy
   
   validates :name, :presence => true
   validates :first_name, :presence => true
