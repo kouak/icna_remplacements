@@ -62,9 +62,9 @@ describe Team do
   it "should correctly set_cycle_seed" do
     inputs = [
       # [ day_in_cycle, date ]
-      [ 0, Date.today ], # M1 today
-      [ 6, Date.today ], # M2 today
-      [ 8, Date.new(2013, 7, 14)] # N on July 14th 2013
+      [ 1, Date.today ], # M1 today
+      [ 7, Date.today ], # M2 today
+      [ 9, Date.new(2013, 7, 14)] # N on July 14th 2013
     ]
     results = []
     

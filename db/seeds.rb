@@ -13,6 +13,13 @@ if Team.all.count == 0
 end
 
 
+puts 'RESETTNG TEAM CYCLE SEED'
+# 14-07-2013 => Team 11 working N(ight)
+# => 16-07-2013 => Team 1 working N(ight) (9th day of the cycle)
+(1..12).each do |i|
+  Team.find(i).set_cycle_seed :date => Date.new(2013, 7, 16+(i-1)), :day_in_cycle => 9
+end
+
 puts 'SETTING UP DEFAULT USER LOGIN'
 
 if User.all.count == 0

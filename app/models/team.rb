@@ -17,15 +17,15 @@ class Team < ActiveRecord::Base
   end
 
   # Takes a hash as argument
-  # :day_in_cycle => 0 for M1, 1 for J etc
+  # :day_in_cycle => 1 for M1, 2 for J etc
   # :date => date for this day
   def set_cycle_seed(args = {})
-    day_in_cycle = args[:day_in_cycle] || 0
+    day_in_cycle = args[:day_in_cycle] || 1
     date = args[:date]
     # raise an error if arguments are not valid
-    raise Error if !date.is_a?(Date) || cycle[day_in_cycle].nil?
+    raise ArgumentError if !date.is_a?(Date) || cycle[day_in_cycle-1].nil?
     # Set first_day_in_cycle correctly
-    self.first_day_in_cycle = date-day_in_cycle
+    self.first_day_in_cycle = date-(day_in_cycle-1)
     # save model
     save!
     self
