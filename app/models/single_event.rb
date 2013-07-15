@@ -8,16 +8,8 @@ class SingleEvent < ActiveRecord::Base
   validates_datetime :starttime
   validates_datetime :endtime
 
-  scope :before, lambda {|endtime| where("endtime < ?", endtime.to_datetime)}
-  scope :after, lambda {|starttime| where("starttime > ?", starttime.to_datetime)}
+  scope :before, lambda {|endtime| where("endtime <= ?", endtime.to_datetime)}
+  scope :after, lambda {|starttime| where("starttime >= ?", starttime.to_datetime)}
+  scope :day, lambda {|day| after(day.to_datetime).before((day+1).to_datetime)}
 
-  def as_json(options={})
-    { 
-      :title => name,
-      :start => starttime.rfc822,
-      :end => endtime.rfc822,
-      :allDay => all_day,
-      :description => description
-    }
-  end
 end
