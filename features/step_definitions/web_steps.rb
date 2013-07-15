@@ -1,14 +1,10 @@
-Then /^I should be on the (.+?) page$/ do |page_name|
+When /^I go to (.+?)$/ do |page_name|
+  visit path_to(page_name)
+end
 
-  if page_name == "sign in" || page_name == "login"
-    page_name = 'new user session'
-  elsif page_name == "admin"
-    page_name = "rails admin"
-  elsif page_name == "home"
-    page_name = "root"
-  end
-  
-  current_path.should eql(send("#{page_name.downcase.gsub(' ','_')}_path"))
+Then /^I should be on (the .+? page)$/ do |page_name|
+  puts "I should be on the #{page_name}"
+  current_path.should eql(path_to(page_name))
   page.driver.status_code.to_i.should eql(200)
 end
 

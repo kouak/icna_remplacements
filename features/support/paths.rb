@@ -9,13 +9,25 @@ module NavigationHelpers
     case page_name
 
     when /the home\s?page/
-      '/'
+      root_path
 
     when /the sign up page/
-      '/users/sign_up'
+      new_user_registration_path
 
-    when /the sign in page/
-      '/users/sign_in'
+    when /the sign out page/
+      destroy_user_session_path
+
+    when /the sign in page/, /the login page/
+      new_user_session_path
+
+    when /the account edit(ion)? page/
+      edit_user_registration_path
+
+    when /the admin panel page/, /the admin (page)|(panel)/
+      rails_admin_path
+
+    when /the dashboard( home)? page/
+      '/dashboard'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

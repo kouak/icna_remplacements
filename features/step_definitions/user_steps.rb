@@ -13,7 +13,7 @@ def create_unconfirmed_user
   create_visitor
   delete_user
   sign_up
-  visit '/users/sign_out'
+  visit path_to 'the sign out page'
 end
 
 def create_user
@@ -33,7 +33,7 @@ end
 
 def sign_up
   delete_user
-  visit '/users/sign_up'
+  visit path_to 'the sign up page'
   fill_in I18n.t('activerecord.attributes.user.first_name'), :with => @visitor[:first_name]
   fill_in I18n.t('activerecord.attributes.user.name'), :with => @visitor[:name]
   check I18n.t('activerecord.attributes.user.detailed') if @visitor[:detailed] === true
@@ -46,7 +46,7 @@ def sign_up
 end
 
 def sign_in
-  visit '/users/sign_in'
+  visit path_to 'the sign in page'
   fill_in I18n.t('activerecord.attributes.user.email'), :with => @visitor[:email]
   fill_in I18n.t('activerecord.attributes.user.password'), :with => @visitor[:password]
   click_button I18n.t('devise.sessions.new.sign_in')
@@ -54,7 +54,7 @@ end
 
 ### GIVEN ###
 Given /^I am not logged in$/ do
-  visit '/users/sign_out'
+  visit path_to 'the sign out page'
 end
 
 Given /^I am logged in$/ do
@@ -91,7 +91,7 @@ When /^I sign in with valid credentials$/ do
 end
 
 When /^I sign out$/ do
-  visit '/users/sign_out'
+  step 'I go to the sign out page'
 end
 
 When /^I sign up with valid user data$/ do
@@ -144,7 +144,7 @@ When /^I sign in with a wrong password$/ do
 end
 
 When /^I edit my account details$/ do
-  visit '/users/edit'
+  visit path_to 'the account edit page'
   fill_in I18n.t('activerecord.attributes.user.name'), :with => "newname"
   fill_in I18n.t('activerecord.attributes.user.first_name'), :with => "new first name"
   fill_in I18n.t('activerecord.attributes.user.surname'), :with => "new surname"
@@ -154,7 +154,7 @@ When /^I edit my account details$/ do
 end
 
 When /^I look at the list of users$/ do
-  visit '/'
+  visit path_to 'the users page'
 end
 
 ### THEN ###

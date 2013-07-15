@@ -5,10 +5,12 @@ LfeeRemplacements::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'users#index'
+  root 'welcome#home'
   resources :users, :only => [:show, :index]
   resources :teams, :only => [:show, :index]
 
+  get ':controller(/:action(/:id))' # default route
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

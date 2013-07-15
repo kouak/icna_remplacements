@@ -4,6 +4,7 @@ Feature: Show Users
   so I can know if the site has users
 
     Scenario: Viewing users
-      Given I exist as a user
+      Given I am logged in
       When I look at the list of users
-      Then I should see my name
+      Then I should be redirected to the home page
+      And I should see an unauthorized flash message
