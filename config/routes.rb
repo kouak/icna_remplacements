@@ -1,12 +1,17 @@
 LfeeRemplacements::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
+   # Pretty URLs for devise
   devise_for :users, :path => 'account', :path_names => {
     :sign_in => 'login',
     :sign_out => 'logout',
     :sign_up => 'register'
-    } do
+    }
+
+  devise_scope :user do
     resources :events
   end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
