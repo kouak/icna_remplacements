@@ -2,17 +2,27 @@
 
 
 FactoryGirl.define do
-  factory :user do
-    name 'NOM'
-    first_name 'Prenom'
-    surname 'Surnom'
-    detailed false
-    email 'example@example.com'
-    password 'please'
-    password_confirmation 'please'
-    # required if the Devise Confirmable module is used
-    confirmed_at Time.now
-    
-    association :team, :factory  => :team
-  end
+    sequence(:email) { |n| "example#{n}@example.com" }
+    factory :user do
+        name 'NOM'
+        first_name 'Prenom'
+        surname 'Surnom'
+        detailed false
+        email
+        password 'please'
+        password_confirmation 'please'
+        # required if the Devise Confirmable module is used
+        confirmed_at Time.now
+        
+        association :team, :factory  => :team
+
+    end
+
+    factory :user_with_single_events, :parent => :user do
+        after :create do |u, e|
+            FactoryGirl.create(:single_event_now, :user => u)
+            FactoryGirl.create(:single_event_ten_days_after, :user => u)
+            FactoryGirl.create(:single_event_ten_days_before, :user => u)
+        end
+    end
 end

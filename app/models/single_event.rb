@@ -8,6 +8,9 @@ class SingleEvent < ActiveRecord::Base
   validates_datetime :starttime
   validates_datetime :endtime
 
+  scope :before, lambda {|endtime| where("endtime < ?", endtime.to_datetime)}
+  scope :after, lambda {|starttime| where("starttime > ?", starttime.to_datetime)}
+
   def as_json(options={})
     { 
       :title => name,
