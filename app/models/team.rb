@@ -1,39 +1,38 @@
 class Team < ActiveRecord::Base
 	has_many :users
 	
-  validates_date :first_day_in_cycle
+  validates_datetime :first_day_in_cycle
 
   def to_s
-		self.team.to_s
+		team.to_s
 	end
 
   def name
-    to_s
+    self.to_s
   end
 
-  # TODO: remove hardcoding
   def cycle
-    ['M1', 'J', 'S1', false, false, false, 'M2', 'S2', 'N', false, false, false]
+    # Lazy loading of cycle
+    @cycle ||= Cycle.new(:first_day => Time.now)
   end
 
   # Takes a hash as argument
   # :day_in_cycle => 1 for M1, 2 for J etc
-  # :date => date for this day
+  # :date => Time (instance) for this day
   def set_cycle_seed(args = {})
     day_in_cycle = args[:day_in_cycle] || 1
     date = args[:date]
     # raise an error if arguments are not valid
-    raise ArgumentError if !date.is_a?(Date) || cycle[day_in_cycle-1].nil?
+    raise ArgumentError if !date.is_a?(Time) || cycle.to_a[day_in_cycle-1].nil?
     # Set first_day_in_cycle correctly
-    self.first_day_in_cycle = date-(day_in_cycle-1)
+    self.first_day_in_cycle = date-(day_in_cycle-1).days
     # save model
     save!
     self
   end
 
-  def day_of_cycle?(day = Date.today)
-    raise ArgumentError unless day.is_a?(Date)
-    offset = day - first_day_in_cycle
-    cycle[offset % cycle.count]
+  # Wrapper for Cycle model
+  def day_of_cycle(day = Time.now)
+    cycle.vacation_on(day)
   end
 end

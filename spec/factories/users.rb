@@ -14,7 +14,8 @@ FactoryGirl.define do
         # required if the Devise Confirmable module is used
         confirmed_at Time.now
         
-        association :team, :factory  => :team
+        # associations
+        team
 
     end
 

@@ -3,30 +3,30 @@
 FactoryGirl.define do
   factory :single_event do
     name "Event title"
-    starttime DateTime.now
-    endtime DateTime.now
+    starttime Time.now
+    endtime Time.now
     all_day true
     description "Description"
     user
 
     factory :single_event_now do
       name "Now"
-      starttime { DateTime.now }
-      endtime { DateTime.now }
+      starttime { Time.now }
+      endtime { Time.now }
       all_day true
     end
     
     factory :single_event_ten_days_before do
       name "Before"
-      starttime { DateTime.now-10 } 
-      endtime { DateTime.now-10 }
+      starttime { Time.now-10.days } 
+      endtime { Time.now-10.days }
       all_day true
     end
 
     factory :single_event_ten_days_after do
       name "After"
-      starttime { DateTime.now+10 }
-      endtime { DateTime.now+10 }
+      starttime { Time.now+10.days }
+      endtime { Time.now+10.days }
       all_day true
     end
   end

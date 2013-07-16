@@ -59,7 +59,7 @@ gem 'will_paginate'
 gem 'rails_admin'
 gem 'validates_timeliness'
 gem 'fullcalendar-rails'
-
+gem 'ice_cube'
 group :assets do
   gem 'therubyracer'
 end

@@ -7,8 +7,8 @@ describe SingleEvent do
       @attr = { 
         :name => "Event",
         :user => FactoryGirl.create(:user),
-        :starttime => Date.today,
-        :endtime => Date.today,
+        :starttime => Time.now.beginning_of_day + 2.hours,
+        :endtime => Time.now.beginning_of_day + 5.hours,
         :all_day => false,
         :description => "Description of the event"
       }
@@ -53,27 +53,27 @@ describe SingleEvent do
 
     describe "scopes" do
       it "should provide before scope" do
-        @user.single_events.before(DateTime.now+15).count.should eql(3) # We should have all three events
-        @user.single_events.before(DateTime.now+5).count.should eql(2) # Excluse ten_days_after single_event
-        @user.single_events.before(DateTime.now-5).count.should eql(1) # Only ten_days_before single_event
-        @user.single_events.before(DateTime.now-15).count.should eql(0) # None
+        @user.single_events.before(Time.now+15.days).count.should eql(3) # We should have all three events
+        @user.single_events.before(Time.now+5.days).count.should eql(2) # Excluse ten_days_after single_event
+        @user.single_events.before(Time.now-5.days).count.should eql(1) # Only ten_days_before single_event
+        @user.single_events.before(Time.now-15.days).count.should eql(0) # None
       end
 
       it "should provide after scope" do
-        @user.single_events.after(DateTime.now-15).count.should eql(3) # We should have all three events
-        @user.single_events.after(DateTime.now-5).count.should eql(2) # Excluse ten_days_after single_event
-        @user.single_events.after(DateTime.now+5).count.should eql(1) # Only ten_days_before single_event
-        @user.single_events.after(DateTime.now+15).count.should eql(0) # None
+        @user.single_events.after(Time.now-15.days).count.should eql(3) # We should have all three events
+        @user.single_events.after(Time.now-5.days).count.should eql(2) # Excluse ten_days_after single_event
+        @user.single_events.after(Time.now+5.days).count.should eql(1) # Only ten_days_before single_event
+        @user.single_events.after(Time.now+15.days).count.should eql(0) # None
       end
 
       it "should provide day scope" do
-        @user.single_events.day(DateTime.now-10).count.should eql(1)
+        @user.single_events.day(Time.now-10.days).count.should eql(1)
       end
 
       it "should work with chained scopes" do
-        @user.single_events.after(DateTime.now+1).before(DateTime.now+9).count.should eql(0)
-        @user.single_events.after(DateTime.now-1).before(DateTime.now+9).count.should eql(1)
-        @user.single_events.before(DateTime.now+1).after(DateTime.now-15).count.should eql(2)
+        @user.single_events.after(Time.now+1.days).before(Time.now+9.days).count.should eql(0)
+        @user.single_events.after(Time.now-1.days).before(Time.now+9.days).count.should eql(1)
+        @user.single_events.before(Time.now+1.days).after(Time.now-15.days).count.should eql(2)
       end
     end
   end
