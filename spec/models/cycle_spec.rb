@@ -75,6 +75,11 @@ describe Cycle do
         r = @cycle.vacations_between(@first_day + 1.day, @first_day + 3.days)
         r.map { |x| x[:title] }.should eql(['Second', 'Third', 'First'])
       end
+
+      it "should properly filter non work days" do
+        r = @cycle.vacations_between(@first_day + 1.day, @first_day + 3.days, :work_only => true)
+        r.map { |x| x[:title] }.should eql(['Second', 'First'])
+      end
     end
   end
 end

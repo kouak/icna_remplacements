@@ -51,10 +51,10 @@ class Cycle
   # and before to 2013-07-19 23:59:59 CEST (using end_of_day)
   # and therefore return vacations on 07-16, 07-17, 07-18 and 07-19
   #
-  def vacations_between(after, before)
+  def vacations_between(after, before, options = {})
     raise ArgumentError unless after.is_a? Time and before.is_a? Time # sanitize arguments
     raise ArgumentError if after > before # invalid range
-    vacations_range(after.beginning_of_day, before.end_of_day)
+    vacations_range(after.beginning_of_day, before.end_of_day, options)
   end
 
 
@@ -63,12 +63,16 @@ class Cycle
   protected
   # Takes time boundaries as arguments
   # Returns sorted array of vacations happening between given time boundaries
-  def vacations_range(after, before)
+  # options[:work_only] if set to true, will skip non work days (based on cycle[][:work])
+  def vacations_range(after, before, options = {})
     # protected method should expect sanitized input from other methods
     results = []
     self.cycle.each do |x| # Loop through all work days
+      if options[:work_only] == true and x[:work] == false # Skip non work days if that's what we want
+        next
+      end
       x[:schedule].occurrences_between(after, before).each do |o|
-        results.push({:title => x[:title], :when => o})
+        results.push({:title => x[:title], :when => o, :work => x[:work]})
       end
     end
     results.sort { |x,y| x[:when] <=> y[:when] } # Sort this array

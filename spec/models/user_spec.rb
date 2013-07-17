@@ -153,19 +153,29 @@ describe User do
   describe "events" do
     before(:each) do
       @user = FactoryGirl.create(:user_with_single_events, :team => FactoryGirl.create(:team_with_today_as_first_day))
+      # Days :      -10 # # # # # # # # # N # # # # # # # # # +10
+      # SingleEvents: X . . . . . . . . . X . . . . . . . . . X
+      # WorkDays:     S . . . M S N . . . M J S . . . M S N . .
     end
 
     it "should return all events (single_events and team cycle)" do
-      events = @user.events_for Time.now
+      events = @user.all_events_for Time.now
       events.count.should eql(2) # 2 events (Team M1 + FactoryGirl single_events)
       events.select{|e| e[:name] == 'M1'}.count.should eql(1) # M1
     end
 
     it "should return events for a time range" do
-      events = @user.events_between(Time.now.beginning_of_day, Time.now+1.day)
-      events.count.should eql(3) # 3 events (Team M1 + Team J + FactoryGirl single_events)
-      events.select{|e| e[:name] == 'J'}.count.should eql(1) # M1
-      events.select{|e| e[:name] == 'M1'}.count.should eql(1) # M1
+      events = @user.all_events_between(Time.now.beginning_of_day-10.days, Time.now-9.days)
+      events.count.should eql(3) # 3 events (Team S1 + Team R1 + FactoryGirl single_events)
+      events.select{|e| e[:name] == 'S1'}.count.should eql(1)
+      events.select{|e| e[:name] == 'R1'}.count.should eql(1)
+    end
+
+    it "should return filtered events" do
+      events = @user.work_events_between(Time.now.beginning_of_day-10.days, Time.now-9.days)
+      events.count.should eql(2) # 3 events (Team S1  + FactoryGirl single_events)
+      events.select{|e| e[:name] == 'S1'}.count.should eql(1)
+      events.select{|e| e[:name] == 'R1'}.count.should eql(0)
     end
 
   end
