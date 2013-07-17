@@ -88,7 +88,7 @@ describe Team do
   context "with seed data" do
     before(:each) do
       @team = Team.new(@attr)
-      @team.set_cycle_seed :date => Time.now, :day_in_cycle => 1
+      @team.set_cycle_seed :date => Time.now-1.day, :day_in_cycle => 2 # J yesterday => S1 today
     end
 
     it "should raise an error with invalid arguments" do
@@ -97,10 +97,10 @@ describe Team do
 
     it "should return proper cycle day" do
       inputs = [Time.now, Time.now-12.days, Time.now-4.days, Time.now+1.days, Time.now+6.days, Time.now+24.days+1.days, Time.now+4.days]
-      targets = ['M1', 'M1', 'N', 'J', 'M2', 'J', 'R2']
+      targets = ['S1', 'S1', 'R5', 'R1', 'N', 'R1', 'M2']
 
       c = @team.day_of_cycle
-      c[:title].should eql('M1') # A call without argument should default to today
+      c[:title].should eql('S1') # A call without argument should default to today
 
       inputs.each_with_index do |v,k|
         c = @team.day_of_cycle(v)

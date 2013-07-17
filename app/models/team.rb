@@ -13,7 +13,7 @@ class Team < ActiveRecord::Base
 
   def cycle
     # Lazy loading of cycle
-    @cycle ||= Cycle.new(:first_day => Time.now)
+    @cycle ||= Cycle.new(:first_day => self.first_day_in_cycle)
   end
 
   # Takes a hash as argument
@@ -28,6 +28,7 @@ class Team < ActiveRecord::Base
     self.first_day_in_cycle = date-(day_in_cycle-1).days
     # save model
     save!
+    remove_instance_variable :@cycle # Clean up Cycle so it can be refreshed
     self
   end
 

@@ -82,7 +82,7 @@ class Cycle
     first_day = first_day - cycle_length.days # Go back in time a bit
     i = 0
     self.cycle.map! do |x|
-      s = Schedule.new((first_day+i.days).beginning_of_day) # First day of cycle, i = 0, convert to Time because of Ice Cube compatibility
+      s = Schedule.new((first_day+i.days).beginning_of_day) # First day of cycle, i = 0
       i += 1
       s.add_recurrence_rule Rule.daily(cycle_length) # Make it occuring every X days
       x.merge :schedule => s

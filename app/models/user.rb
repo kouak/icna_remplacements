@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
     raise ArgumentError unless after.is_a? Time and before.is_a? Time # sanitize arguments
     raise ArgumentError if after > before # invalid range
 
-    vacation = team.cycle.vacations_between(after, before).map do |x| # Find vacations on this range
+    vacation = self.team.cycle.vacations_between(after, before).map do |x| # Find vacations on this range
       single_events.new(
         :name => x[:title],
         :starttime => x[:when],
