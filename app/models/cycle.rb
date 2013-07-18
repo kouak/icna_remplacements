@@ -57,6 +57,15 @@ class Cycle
     vacations_range(after.beginning_of_day, before.end_of_day, options)
   end
 
+  def single_event_on(day)
+    v = vacation_on(day)
+    return SingleEvent.new(
+      :name => v[:title],
+      :starttime => v[:when].beginning_of_day,
+      :endtime => v[:when].end_of_day,
+      :all_day => true
+      )
+  end
 
 
 

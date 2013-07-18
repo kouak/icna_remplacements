@@ -92,7 +92,7 @@ describe Team do
     end
 
     it "should raise an error with invalid arguments" do
-      expect { @Team.day_of_cycle?('caca') }.to raise_error
+      expect { @team.day_of_cycle('caca') }.to raise_error(ArgumentError)
     end
 
     it "should return proper cycle day" do

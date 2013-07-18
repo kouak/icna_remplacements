@@ -6,7 +6,7 @@ describe Cycle do
   end
 
   it "should raise an error when initialized with wrong output" do
-    expect { Cycle.new(:first_day => nil) }.to raise_error
+    expect { Cycle.new(:first_day => nil) }.to raise_error(ArgumentError)
   end
 
   it "should have a proper default cycle" do
@@ -55,7 +55,7 @@ describe Cycle do
           [@first_day + 3.days, @first_day]
         ]
         invalid.each do |i|
-          expect { @cycle.vacations_between(i[0], i[1]) }.to raise_error
+          expect { @cycle.vacations_between(i[0], i[1]) }.to raise_error(ArgumentError)
         end
       end
 
@@ -79,6 +79,34 @@ describe Cycle do
       it "should properly filter non work days" do
         r = @cycle.vacations_between(@first_day + 1.day, @first_day + 3.days, :work_only => true)
         r.map { |x| x[:title] }.should eql(['Second', 'First'])
+      end
+      
+      describe "conversion to SingleEvent" do
+        before(:each) do
+          @time = Time.now
+          @owner =  FactoryGirl.create(:user)
+          @single_event = @owner.team.cycle.single_event_on(@time)
+        end
+
+        it "should return a SingleEvent" do
+          @single_event.should be_a(SingleEvent)
+        end
+
+        it "should return an invalid SingleEvent (missing user_id)" do
+          @single_event.should_not be_valid
+        end
+
+        it "should validates after user_id is filled" do
+          @single_event.user = @owner
+          @single_event.should be_valid
+        end
+
+        it "should return correct data" do
+          @single_event.starttime.should eql(@time.beginning_of_day)
+          @single_event.endtime.should eql(@time.end_of_day)
+          @single_event.name.should eql(@owner.team.day_of_cycle(@time)[:title])
+          @single_event.all_day.should eql(true)
+        end
       end
     end
   end
