@@ -8,8 +8,8 @@ class SingleEvent < ActiveRecord::Base
   validates_datetime :starttime
   validates_datetime :endtime
 
-  scope :before, lambda {|endtime| where("endtime <= ?", endtime.to_time)}
-  scope :after, lambda {|starttime| where("starttime >= ?", starttime.to_time)}
+  scope :before, lambda {|starttime| where("starttime <= ?", starttime.to_time)} # Events STARTING before
+  scope :after, lambda {|endtime| where("endtime >= ?", endtime.to_time)} # Events ENDING after
   scope :day, lambda {|day| after(day.to_time.beginning_of_day).before(day.to_time.end_of_day)}
 
 end

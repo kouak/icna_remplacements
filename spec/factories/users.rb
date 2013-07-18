@@ -24,6 +24,7 @@ FactoryGirl.define do
             FactoryGirl.create(:single_event_now, :user => u)
             FactoryGirl.create(:single_event_ten_days_after, :user => u)
             FactoryGirl.create(:single_event_ten_days_before, :user => u)
+            FactoryGirl.create(:single_event_tomorow_with_override, :user => u)
         end
     end
 end
