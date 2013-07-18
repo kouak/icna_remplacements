@@ -106,6 +106,7 @@ describe Cycle do
           @single_event.endtime.should eql(@time.end_of_day)
           @single_event.name.should eql(@owner.team.day_of_cycle(@time)[:title])
           @single_event.all_day.should eql(true)
+          @single_event.override_cycle.should eql(true)
         end
       end
     end

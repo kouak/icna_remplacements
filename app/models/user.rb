@@ -46,15 +46,32 @@ class User < ActiveRecord::Base
   def events_wrapper(after, before, options = {})
     raise ArgumentError unless after.is_a? Time and before.is_a? Time # sanitize arguments
     raise ArgumentError if after > before # invalid range
+    events = self.single_events.before(before).after(after) # Find all single events
+    filter = events.select { |e| e[:override_cycle] == true } # Select only those with override_cycle set to true
     vacation = self.team.cycle.vacations_between(after, before, options).map do |x| # Find vacations on this range, pass options
-      single_events.new(
+      starttime = x[:when].beginning_of_day
+      endtime = x[:when].end_of_day
+      SingleEvent.new(
         :name => x[:title],
-        :starttime => x[:when],
-        :endtime => x[:when],
-        :all_day => true
+        :starttime => x[:when].beginning_of_day,
+        :endtime => x[:when].end_of_day,
+        :all_day => true,
+        :user => self
       )
     end
-    single_events.before(before).after(after) + vacation # Find single_events and combine with others stubbed from vacations
-
+    vacation.reject! do |e| # Reject filtered events
+      r = false
+      filter.each do |f|
+        # Look for records included in filtering events
+        # Note : .change(:usec => 0) sets the microsecond parts to 0, this is mandatory because of an unexpected behaviour of ActiveRecord,
+        # end_of_day, when saved in database and reloaded after appears to be subjet to rounding issues
+        # TODO : report ActiveRecord bug
+        if f[:starttime].change(:usec => 0) <= e.starttime.change(:usec => 0) and f[:endtime].change(:usec => 999) >= e.endtime.change(:usec => 999)
+          r = true
+        end
+      end
+      r
+    end
+    events + vacation # Find single_events and combine with others stubbed from vacations
   end
 end

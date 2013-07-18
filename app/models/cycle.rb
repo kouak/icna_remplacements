@@ -58,18 +58,35 @@ class Cycle
   end
 
   def single_event_on(day)
-    v = vacation_on(day)
-    return SingleEvent.new(
-      :name => v[:title],
-      :starttime => v[:when].beginning_of_day,
-      :endtime => v[:when].end_of_day,
-      :all_day => true
-      )
+    single_events_between(day.beginning_of_day, day.end_of_day).first
+  end
+
+
+  def single_events_between(after, before, options = {})
+    vacations_between(after, before, options).map do |v| # transform each vacation to single_event
+      transform_to_single_event(v)
+    end
   end
 
 
 
   protected
+  # Assume parameters sanitization has been done before
+  # Don't do any in protected methods
+
+  # Transform a vacation to a Single Event
+  def transform_to_single_event(v)
+    # TODO : Create a Vacation Model to handle all this logic
+    SingleEvent.new(
+      :name => v[:title],
+      :starttime => v[:when].beginning_of_day,
+      :endtime => v[:when].end_of_day,
+      :all_day => true,
+      :override_cycle => true
+      )
+  end
+
+
   # Takes time boundaries as arguments
   # Returns sorted array of vacations happening between given time boundaries
   # options[:work_only] if set to true, will skip non work days (based on cycle[][:work])
