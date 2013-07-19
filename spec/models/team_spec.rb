@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: teams
+#
+#  id                 :integer          not null, primary key
+#  team               :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#  first_day_in_cycle :datetime
+#
+
 require 'spec_helper'
 
 describe Team do

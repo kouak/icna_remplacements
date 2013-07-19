@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: single_events
+#
+#  id             :integer          not null, primary key
+#  name           :string(255)
+#  starttime      :datetime
+#  endtime        :datetime
+#  all_day        :boolean
+#  description    :string(255)
+#  user_id        :integer
+#  created_at     :datetime
+#  updated_at     :datetime
+#  override_cycle :boolean          default(FALSE)
+#
+
 require 'spec_helper'
 
 describe SingleEvent do
