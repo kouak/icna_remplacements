@@ -3,15 +3,39 @@ class Cycle
   include IceCube # Recurring Events
 
   @@cycle = [ # Default cycle template (class variable)
-    {:title => 'M1', :work => true, :who_can_replace => [+1, +2, +7, +8]},
-    {:title => 'J',  :work => true, :who_can_replace => [+2, +3, +8, +9]},
-    {:title => 'S1', :work => true, :who_can_replace => [+3, +10, +11]},
+    {
+      :title => 'M1', :work => true, 
+      :who_can_replace => [+1, +2, +7, +8],
+      :who_can_permute => [-1, +6]
+    },
+    {
+      :title => 'J',  :work => true,
+      :who_can_replace => [+2, +3, +8, +9],
+      :who_can_permute => [+1, -1, +7, +6]
+    },
+    {
+      :title => 'S1', :work => true,
+      :who_can_replace => [+3, +10, +11],
+      :who_can_permute => [+5, +6, +7]
+    },
     {:title => 'R1', :work => false},
     {:title => 'R2', :work => false},
     {:title => 'R3', :work => false},
-    {:title => 'M2', :work => true, :who_can_replace => [+1, +2, +7, +8]},
-    {:title => 'S2', :work => true, :who_can_replace => [+3, +4, +9]},
-    {:title => 'N',  :work => true, :who_can_replace => [+4, +5, +10, +11]},
+    {
+      :title => 'M2', :work => true,
+      :who_can_replace => [+1, +2, +7, +8],
+      :who_can_permute => [-1, +4, +5, +6]
+    },
+    {
+      :title => 'S2', :work => true,
+      :who_can_replace => [+3, +4, +9],
+      :who_can_permute => [-1, +1, +5, +6]
+    },
+    {
+      :title => 'N',  :work => true,
+      :who_can_replace => [+4, +5, +10, +11],
+      :who_can_permute => [+1, +6]
+    },
     {:title => 'R4', :work => false},
     {:title => 'R5', :work => false},
     {:title => 'R6', :work => false}
@@ -98,7 +122,13 @@ class Cycle
         next
       end
       x[:schedule].occurrences_between(after, before).each do |o|
-        results.push({:title => x[:title], :when => o, :work => x[:work], :who_can_replace => x[:who_can_replace]})
+        results.push({
+          :title => x[:title],
+          :when => o,
+          :work => x[:work],
+          :who_can_replace => x[:who_can_replace],
+          :who_can_permute => x[:who_can_permute]
+        })
       end
     end
     results.sort { |x,y| x[:when] <=> y[:when] } # Sort this array

@@ -141,7 +141,7 @@ describe Team do
 
     # end
 
-    describe "correct replacements teams" do
+    describe "correct replacement teams" do
       it "should raise an exception with wrong arguments" do
         expect { @teams.first.who_can_replace_on(Time.zone.now + 3.days) }.to raise_error ArgumentError
         expect { @teams.first.who_can_replace_on('caca') }.to raise_error ArgumentError
@@ -170,6 +170,33 @@ describe Team do
         results.select{|e| e.team == 1}.count.should eql(1)
         results.select{|e| e.team == 6}.count.should eql(1)
         results.select{|e| e.team == 7}.count.should eql(1)
+      end
+    end
+    describe "correct permutation teams" do
+      it "should raise an exception with wrong arguments" do
+        expect { @teams.first.who_can_permute_on(Time.zone.now + 3.days) }.to raise_error ArgumentError
+        expect { @teams.first.who_can_permute_on('caca') }.to raise_error ArgumentError
+      end
+
+      it "should be good for M1" do
+        results = @teams.first.who_can_permute_on(Time.zone.now) # Who can permute with Team 1 on M1 ?
+        # We need J and M2 teams => 12, 7
+        results.count.should eql(2)
+        # Expect actual Teams as results
+        results.each{|e| e.should be_a(Team)}
+        # Check we have the right teams
+        results.select{|e| e.team == 7}.count.should eql(1)
+        results.select{|e| e.team == 12}.count.should eql(1)
+
+
+        results = @teams[10].who_can_permute_on(Time.zone.now+10.days) # Who can permute with Team 11 on M1 ?
+        # We need J and M2 teams => 10, 5
+        results.count.should eql(2)
+        # Expect actual Teams as results
+        results.each{|e| e.should be_a(Team)}
+        # Check we have the right teams
+        results.select{|e| e.team == 10}.count.should eql(1)
+        results.select{|e| e.team == 5}.count.should eql(1)
       end
     end
   end

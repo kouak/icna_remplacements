@@ -47,6 +47,15 @@ class Team < ActiveRecord::Base
     Team.where(:team => team_numbers)
   end
 
+  def who_can_permute_on(day = Time.zone.now)
+    raise ArgumentError unless day.is_a? Time
+    # First, grab day on the cycle on day
+    vacation = cycle.vacation_on(day)
+    raise ArgumentError unless vacation[:work] == true # What's the point of calling this method on a day we don't work on ?
+    team_numbers = vacation[:who_can_permute].map{|x| self.offset_to_team_number(x)} # compute team numbers
+    Team.where(:team => team_numbers)
+  end
+
   # Acts like a modulo
   # eg: We are team 12, offset_to_team_number(+1) will return 1
   def offset_to_team_number(offset)
