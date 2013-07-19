@@ -36,6 +36,7 @@ class Ability
       can :dashboard              # grant access to the rails_admin dashboard
     else # regular user
       can :manage, SingleEvent, :user_id => user.id
+      can :access, User
     end
 
   end

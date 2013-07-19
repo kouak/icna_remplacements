@@ -5,7 +5,7 @@ $(document).ready(function() {
   $('#calendar').fullCalendar($.extend({ 
       editable: false,
       eventSources: [{
-        url: '/single_events/stub.json'
+        url: '/events.json'
       }]
     },
     fullcalendarfr_Options)

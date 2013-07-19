@@ -1,0 +1,6 @@
+%h2 Teams
+- @teams.each do |team|
+  %br/
+  #{link_to "#{team.to_s} (#{team.users.count} pcs)", team}
+
+= will_paginate

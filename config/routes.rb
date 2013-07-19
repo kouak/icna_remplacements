@@ -21,13 +21,20 @@ LfeeRemplacements::Application.routes.draw do
     root :to => "dashboard#index", :as => "authenticated_root"
   end
 
-  resources :users, :only => [:show, :index]
-  resources :single_events do
-    collection do
-      get 'stub'
-    end
+  resources :users, :only => [:show]
+  # resources :single_events do
+  #   collection do
+  #     get 'stub'
+  #   end
+  # end
+
+  # Events controller
+  authenticated do
+    resources :events, :only => [:index]
   end
-  resources :teams, :only => [:show, :index]
+  resources :teams, :only => [:show, :index] do
+    resources :users, :only => [:index]
+  end
 
   #get '/dashboard(/:action)' => 'dashboard', :as => :dashboard
   #get ':controller(/:action(/:id))' # default route

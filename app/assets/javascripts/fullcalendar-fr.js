@@ -9,5 +9,6 @@ var fullcalendarfr_Options = {
   monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
   monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jui','Jul','Aoû','Sep','Oct','Nov','Déc'],
   dayNames: ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
-  dayNamesShort: ['Di','Lu','Ma','Me','Je','Ve','Sa']
+  dayNamesShort: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+  ignoreTimezone: false
 }

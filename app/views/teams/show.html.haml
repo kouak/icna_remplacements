@@ -1,0 +1,4 @@
+%h2 Team #{@team}
+- @team.users.each do |user|
+  %br/
+  #{link_to "#{user} (#{user.email})", user} signed up #{user.created_at.to_date}
