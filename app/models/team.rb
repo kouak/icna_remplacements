@@ -16,6 +16,10 @@ class Team < ActiveRecord::Base
     @cycle ||= Cycle.new(:first_day => self.first_day_in_cycle)
   end
 
+  def to_param
+    self.team.to_i
+  end
+
   # Takes a hash as argument
   # :day_in_cycle => 1 for M1, 2 for J etc
   # :date => Time (instance) for this day
