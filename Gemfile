@@ -46,20 +46,48 @@ gem 'jbuilder', '~> 1.2'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Internationalisation
 gem 'rails-i18n', '~> 4.0.0.pre'
+
+# Bootstrap CSS Styling, sass version
 gem 'bootstrap-sass'
+
+# CanCan authorization
 gem 'cancan'
+
+# Devise Authentification
 gem 'devise', '>= 3.0.0.rc'
+
+# Figaro configuration
 gem 'figaro'
+
+# Haml views
 gem 'haml-rails'
-#gem 'libv8'
+
+# User roles (with Devise & CanCan)
 gem 'rolify', '>= 3.3.0.rc4'
+
+# Simple_form helper
 gem 'simple_form', '>= 3.0.0.rc'
+
+# Pagination helper
 gem 'will_paginate'
+
+# Full administration backend / frontend
 gem 'rails_admin'
+
+# Validation of time fields for models
 gem 'validates_timeliness'
+
+# FullCalendar Javascript (nice calendar view)
 gem 'fullcalendar-rails'
+
+# Recurring events
 gem 'ice_cube'
+
+# Annotate : documentation generator
+gem 'annotate'
+
 group :assets do
   gem 'therubyracer'
 end
