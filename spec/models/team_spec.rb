@@ -85,6 +85,19 @@ describe Team do
     end
   end
 
+  it "should correctly transform offset to team number" do
+    team = FactoryGirl.create(:team, :team => 1) # We are team 1
+    team.offset_to_team_number(+1).should eql(2)
+    team.offset_to_team_number(0).should eql(1)
+    team.offset_to_team_number(11).should eql(12)
+    team.offset_to_team_number(-1).should eql(12)
+
+    team = FactoryGirl.create(:team, :team => 11) # We are team 11
+    team.offset_to_team_number(+2).should eql(1)
+    team.offset_to_team_number(+6).should eql(5)
+    team.offset_to_team_number(+24).should eql(11)
+  end
+
   context "with seed data" do
     before(:each) do
       @team = Team.new(@attr)
@@ -105,6 +118,58 @@ describe Team do
       inputs.each_with_index do |v,k|
         c = @team.day_of_cycle(v)
         c[:title].should eql(targets[k])
+      end
+    end
+  end
+
+  context "all teams created and initialized" do
+    before(:each) do
+      @teams = []
+      for i in 1..12 do
+        @teams << FactoryGirl.create(:team_with_today_as_first_day, :team => i, :first_day_in_cycle => Time.zone.now + (i-1).days)
+      end
+    end
+
+    # describe "can_replace_on?" do
+    #   it "should raise an exception with wrong arguments" do
+    #     # We can't replace ourselves
+    #     expect { @teams.first.can_replace_on?(@teams.first, Time.zone.now) }.to raise_error ArgumentError
+    #     expect { @teams.first.can_replace_on?(nil, nil)}.to raise_error ArgumentError
+    #     expect { @teams.first.can_replace_on?(nil, Time.zone.now)}.to raise_error ArgumentError
+    #     expect { @teams.first.can_replace_on?(@teams[1], nil)}.to raise_error ArgumentError
+    #   end
+
+    # end
+
+    describe "correct replacements teams" do
+      it "should raise an exception with wrong arguments" do
+        expect { @teams.first.who_can_replace_on(Time.zone.now + 3.days) }.to raise_error ArgumentError
+        expect { @teams.first.who_can_replace_on('caca') }.to raise_error ArgumentError
+      end
+
+      it "should be good for M1" do
+        results = @teams.first.who_can_replace_on(Time.zone.now) # Who can replace Team 1 on M1 ?
+        # We need 4 teams => 2, 3, 8, 9
+        results.count.should eql(4)
+        # Expect actual Teams as results
+        results.each{|e| e.should be_a(Team)}
+        # Check we have the right teams
+        results.select{|e| e.team == 2}.count.should eql(1)
+        results.select{|e| e.team == 3}.count.should eql(1)
+        results.select{|e| e.team == 8}.count.should eql(1)
+        results.select{|e| e.team == 9}.count.should eql(1)
+
+
+        results = @teams[10].who_can_replace_on(Time.zone.now+10.days) # Who can replace Team 11 on M1 ?
+        # We need 4 teams => 12, 1, 6, 7
+        results.count.should eql(4)
+        # Expect actual Teams as results
+        results.each{|e| e.should be_a(Team)}
+        # Check we have the right teams
+        results.select{|e| e.team == 12}.count.should eql(1)
+        results.select{|e| e.team == 1}.count.should eql(1)
+        results.select{|e| e.team == 6}.count.should eql(1)
+        results.select{|e| e.team == 7}.count.should eql(1)
       end
     end
   end

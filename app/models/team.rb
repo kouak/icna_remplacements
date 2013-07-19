@@ -32,8 +32,28 @@ class Team < ActiveRecord::Base
     self
   end
 
-  # Wrapper for Cycle model
-  def day_of_cycle(day = Time.now)
+  # Wrapper for Cycle model method vacation_on
+  def day_of_cycle(day = Time.zone.now)
     cycle.vacation_on(day)
+  end
+
+  # Returns teams which could replace a member of our own on a specific day
+  def who_can_replace_on(day = Time.zone.now)
+    raise ArgumentError unless day.is_a? Time
+    # First, grab day on the cycle on day
+    vacation = cycle.vacation_on(day)
+    raise ArgumentError unless vacation[:work] == true # What's the point of calling this method on a day we don't work on ?
+    team_numbers = vacation[:who_can_replace].map{|x| self.offset_to_team_number(x)} # compute team numbers
+    Team.where(:team => team_numbers)
+  end
+
+  # Acts like a modulo
+  # eg: We are team 12, offset_to_team_number(+1) will return 1
+  def offset_to_team_number(offset)
+    base = self.team.to_i
+    # TODO: Total equipes should be computed somehow
+    total_equipes = 12
+    offset = offset % total_equipes
+    ((base-1)+offset).modulo(total_equipes) + 1
   end
 end

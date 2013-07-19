@@ -3,15 +3,15 @@ class Cycle
   include IceCube # Recurring Events
 
   @@cycle = [ # Default cycle template (class variable)
-    {:title => 'M1', :work => true},
-    {:title => 'J',  :work => true},
-    {:title => 'S1', :work => true},
+    {:title => 'M1', :work => true, :who_can_replace => [+1, +2, +7, +8]},
+    {:title => 'J',  :work => true, :who_can_replace => [+2, +3, +8, +9]},
+    {:title => 'S1', :work => true, :who_can_replace => [+3, +10, +11]},
     {:title => 'R1', :work => false},
     {:title => 'R2', :work => false},
     {:title => 'R3', :work => false},
-    {:title => 'M2', :work => true},
-    {:title => 'S2', :work => true},
-    {:title => 'N',  :work => true},
+    {:title => 'M2', :work => true, :who_can_replace => [+1, +2, +7, +8]},
+    {:title => 'S2', :work => true, :who_can_replace => [+3, +4, +9]},
+    {:title => 'N',  :work => true, :who_can_replace => [+4, +5, +10, +11]},
     {:title => 'R4', :work => false},
     {:title => 'R5', :work => false},
     {:title => 'R6', :work => false}
@@ -98,7 +98,7 @@ class Cycle
         next
       end
       x[:schedule].occurrences_between(after, before).each do |o|
-        results.push({:title => x[:title], :when => o, :work => x[:work]})
+        results.push({:title => x[:title], :when => o, :work => x[:work], :who_can_replace => x[:who_can_replace]})
       end
     end
     results.sort { |x,y| x[:when] <=> y[:when] } # Sort this array

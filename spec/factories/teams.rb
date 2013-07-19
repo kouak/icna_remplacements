@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :team do
-    team 11
+    team 1
     first_day_in_cycle Time.now
     factory :team_with_today_as_first_day do
       first_day_in_cycle Time.now
