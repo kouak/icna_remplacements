@@ -174,7 +174,6 @@ describe Team do
 
         results = @teams[10].who_can_replace_on(Time.zone.now+10.days) # Who can replace Team 11 on M1 ?
         # We need 4 teams => 12, 1, 6, 7
-        puts results.map{|r| r.team }.to_yaml
         results.count.should eql(4)
         # Expect actual Teams as results
         results.each{|e| e.should be_a(Team)}
