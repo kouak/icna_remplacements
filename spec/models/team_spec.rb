@@ -135,6 +135,7 @@ describe Team do
 
   context "all teams created and initialized" do
     before(:each) do
+      Team.delete_all # Clean up all database residues
       @teams = []
       for i in 1..12 do
         @teams << FactoryGirl.create(:team_with_today_as_first_day, :team => i, :first_day_in_cycle => Time.zone.now + (i-1).days)
@@ -173,6 +174,7 @@ describe Team do
 
         results = @teams[10].who_can_replace_on(Time.zone.now+10.days) # Who can replace Team 11 on M1 ?
         # We need 4 teams => 12, 1, 6, 7
+        puts results.map{|r| r.team }.to_yaml
         results.count.should eql(4)
         # Expect actual Teams as results
         results.each{|e| e.should be_a(Team)}
