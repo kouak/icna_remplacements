@@ -20,7 +20,7 @@ class Team < ActiveRecord::Base
 	end
 
   def name
-    self.to_s
+    to_s
   end
 
   def cycle
