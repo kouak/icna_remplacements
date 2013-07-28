@@ -11,6 +11,7 @@
 
 class Team < ActiveRecord::Base
 	has_many :users
+  has_and_belongs_to_many :possible_requests, :class_name => 'Request'
 	
   validates_datetime :first_day_in_cycle
 

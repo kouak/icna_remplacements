@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   
   belongs_to :team
   has_many :single_events, :dependent => :destroy
+  has_many :requests, :dependent => :destroy, :foreign_key => 'owner_id'
   
   validates :name, :presence => true
   validates :first_name, :presence => true

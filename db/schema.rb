@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130718144607) do
+ActiveRecord::Schema.define(version: 20130726222747) do
 
   create_table "rails_admin_histories", force: true do |t|
     t.text     "message"
@@ -25,6 +25,26 @@ ActiveRecord::Schema.define(version: 20130718144607) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], name: "index_rails_admin_histories"
+
+  create_table "requests", force: true do |t|
+    t.integer  "owner_id"
+    t.datetime "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "requests_teams", id: false, force: true do |t|
+    t.integer "team_id",    null: false
+    t.integer "request_id", null: false
+  end
+
+  add_index "requests_teams", ["request_id", "team_id"], name: "index_requests_teams_on_request_id_and_team_id"
+  add_index "requests_teams", ["team_id", "request_id"], name: "index_requests_teams_on_team_id_and_request_id"
+
+  create_table "requests_teams_tables", force: true do |t|
+    t.integer "request_id"
+    t.integer "team_id"
+  end
 
   create_table "roles", force: true do |t|
     t.string   "name"

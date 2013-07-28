@@ -7,5 +7,10 @@ FactoryGirl.define do
     factory :team_with_today_as_first_day do
       first_day_in_cycle Time.now
     end
+    (2..12).each do |i|
+      factory "team_#{i}".to_s do
+        team i
+      end
+    end
   end
 end
