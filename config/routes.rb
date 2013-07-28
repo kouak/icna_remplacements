@@ -31,8 +31,15 @@ LfeeRemplacements::Application.routes.draw do
   # Events controller
   authenticated do
     resources :events, :only => [:index]
+    resources :requests
   end
+  
+  
   resources :teams, :only => [:show, :index] do
+    collection do
+      get 'who_can_replace_on/:date', :to => :who_can_replace_on
+      get 'who_can_permute_on/:date', :to => :who_can_permute_on
+    end
     resources :users, :only => [:index]
   end
 
